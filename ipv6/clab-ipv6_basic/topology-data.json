@@ -1,0 +1,277 @@
+{
+  "name": "ipv6_basic",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "management_network",
+        "bridge": "br-75521830e055",
+        "ipv4-subnet": "192.168.255.0/24",
+        "ipv4-gw": "192.168.255.1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": [],
+  "nodes": {
+    "SW1": {
+      "index": "0",
+      "shortname": "SW1",
+      "longname": "clab-ipv6_basic-SW1",
+      "fqdn": "SW1.ipv6_basic.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW1",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:46:f5:5c",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-75521830e055",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW1",
+        "clab-node-longname": "clab-ipv6_basic-SW1",
+        "clab-node-name": "SW1",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ipv6/ipv6_basic.yml",
+        "containerlab": "ipv6_basic"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1001,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1001,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW2": {
+      "index": "1",
+      "shortname": "SW2",
+      "longname": "clab-ipv6_basic-SW2",
+      "fqdn": "SW2.ipv6_basic.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW2",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:2c:cc:e1",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-75521830e055",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW2",
+        "clab-node-longname": "clab-ipv6_basic-SW2",
+        "clab-node-name": "SW2",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ipv6/ipv6_basic.yml",
+        "containerlab": "ipv6_basic"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1002,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1002,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW3": {
+      "index": "2",
+      "shortname": "SW3",
+      "longname": "clab-ipv6_basic-SW3",
+      "fqdn": "SW3.ipv6_basic.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW3",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:b6:02:09",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-75521830e055",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW3",
+        "clab-node-longname": "clab-ipv6_basic-SW3",
+        "clab-node-name": "SW3",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ipv6/ipv6_basic.yml",
+        "containerlab": "ipv6_basic"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1003,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1003,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW4": {
+      "index": "3",
+      "shortname": "SW4",
+      "longname": "clab-ipv6_basic-SW4",
+      "fqdn": "SW4.ipv6_basic.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW4",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.5",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:18:b8:6b",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-75521830e055",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ipv6/clab-ipv6_basic/SW4",
+        "clab-node-longname": "clab-ipv6_basic-SW4",
+        "clab-node-name": "SW4",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ipv6/ipv6_basic.yml",
+        "containerlab": "ipv6_basic"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1004,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1004,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "SW1",
+        "interface": "et49",
+        "mac": "aa:c1:ab:9f:0c:50",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW2",
+        "interface": "et49",
+        "mac": "aa:c1:ab:96:53:2e",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW1",
+        "interface": "et1",
+        "mac": "aa:c1:ab:8f:f1:b3",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW3",
+        "interface": "et1",
+        "mac": "aa:c1:ab:3a:67:2b",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW1",
+        "interface": "et2",
+        "mac": "aa:c1:ab:47:dc:1b",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW4",
+        "interface": "et1",
+        "mac": "aa:c1:ab:30:8a:86",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW2",
+        "interface": "et1",
+        "mac": "aa:c1:ab:cd:b0:ef",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW3",
+        "interface": "et2",
+        "mac": "aa:c1:ab:a9:a8:28",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW2",
+        "interface": "et2",
+        "mac": "aa:c1:ab:30:41:b3",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW4",
+        "interface": "et2",
+        "mac": "aa:c1:ab:cf:1f:80",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW3",
+        "interface": "et49",
+        "mac": "aa:c1:ab:f7:09:11",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW4",
+        "interface": "et49",
+        "mac": "aa:c1:ab:7f:d6:0b",
+        "peer": "a"
+      }
+    }
+  ]
+}

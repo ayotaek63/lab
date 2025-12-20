@@ -1,0 +1,241 @@
+! Startup-config last modified at Tue Aug 26 01:30:36 2025 by admin
+! device: DC1-BORDER-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$l558tCXsIn6UGemo$iI4iUWqMf//SNmIiqDHjugyaTAkloCSAIWEwANV0KnIK0sG49YR5husC7myQnh.hnkpOB/L4BbG873MTq2DQq/
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC1-BORDER-01
+!
+spanning-tree mode rapid-pvst
+no spanning-tree vlan-id 4093-4094
+spanning-tree vlan-id 1-4094 priority 4096
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 10,4001-4003
+!
+vlan 4093
+   trunk group INTERLINK
+!
+vlan 4094
+   trunk group MLAG
+!
+vrf instance A
+!
+vrf instance B
+!
+vrf instance C
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Port-Channel1
+   switchport mode trunk
+   mlag 1
+!
+interface Port-Channel2
+   switchport mode trunk
+   mlag 2
+!
+interface Port-Channel2000
+   switchport mode trunk
+   switchport trunk group INTERLINK
+   switchport trunk group MLAG
+!
+interface Ethernet1
+   channel-group 1 mode active
+!
+interface Ethernet2
+   channel-group 2 mode active
+!
+interface Ethernet49
+   mtu 9214
+   no switchport
+   ip address 172.16.0.1/31
+!
+interface Ethernet55
+   channel-group 2000 mode active
+!
+interface Ethernet56
+   channel-group 2000 mode active
+!
+interface Loopback0
+   ip address 172.16.240.1/32
+!
+interface Loopback1
+   ip address 172.16.242.1/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.2/24
+!
+interface Vlan10
+   mtu 9214
+   vrf A
+   ip address 10.1.1.2/24
+   ip virtual-router address 10.1.1.1
+!
+interface Vlan4001
+   vrf A
+   ip address 172.16.150.9/29
+   ip virtual-router address 172.16.150.11
+!
+interface Vlan4002
+   vrf B
+   ip address 172.16.150.17/29
+   ip virtual-router address 172.16.150.19
+!
+interface Vlan4003
+   vrf C
+   ip address 172.16.150.25/29
+   ip virtual-router address 172.16.150.27
+!
+interface Vlan4093
+   no autostate
+   ip address 172.16.250.0/31
+!
+interface Vlan4094
+   no autostate
+   ip address 172.16.255.254/31
+!
+interface Vxlan1
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan 10 vni 10010
+!
+ip virtual-router mac-address aa:aa:aa:aa:aa:aa
+!
+ip routing
+ip routing vrf A
+ip routing vrf B
+ip routing vrf C
+no ip routing vrf MGMT
+!
+ip prefix-list LOOPBACK
+   seq 10 permit 172.16.240.0/24 ge 32
+   seq 20 permit 172.16.241.0/24 ge 32
+   seq 30 permit 172.16.242.0/24 ge 32
+!
+mlag configuration
+   domain-id DC1-BORDER-1,2
+   local-interface Vlan4094
+   peer-address 172.16.255.255
+   peer-link Port-Channel2000
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map FIREWALL_VRF_A permit 10
+   set ip next-hop 172.16.150.11
+!
+route-map FIREWALL_VRF_B permit 10
+   set ip next-hop 172.16.150.19
+!
+route-map FIREWALL_VRF_C permit 10
+   set ip next-hop 172.16.150.27
+!
+route-map INTERLINK permit 10
+   set origin incomplete
+!
+route-map LOOPBACK permit 10
+   match ip address prefix-list LOOPBACK
+!
+router bgp 65001
+   router-id 172.16.240.1
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 8 ecmp 8
+   neighbor FIREWALL_INT_VRF_A peer group
+   neighbor FIREWALL_INT_VRF_A remote-as 65004
+   neighbor FIREWALL_INT_VRF_A route-map FIREWALL_VRF_A out
+   neighbor FIREWALL_INT_VRF_A send-community
+   neighbor FIREWALL_INT_VRF_B peer group
+   neighbor FIREWALL_INT_VRF_B remote-as 65004
+   neighbor FIREWALL_INT_VRF_B route-map FIREWALL_VRF_B out
+   neighbor FIREWALL_INT_VRF_B send-community
+   neighbor FIREWALL_INT_VRF_C peer group
+   neighbor FIREWALL_INT_VRF_C remote-as 65004
+   neighbor FIREWALL_INT_VRF_C route-map FIREWALL_VRF_C out
+   neighbor FIREWALL_INT_VRF_C send-community
+   neighbor INTERLINK peer group
+   neighbor INTERLINK remote-as 65001
+   neighbor INTERLINK next-hop-self
+   neighbor INTERLINK route-map INTERLINK in
+   neighbor INTERLINK send-community
+   neighbor OVERLAY peer group
+   neighbor OVERLAY remote-as 65000
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 3
+   neighbor OVERLAY send-community
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY remote-as 65000
+   neighbor UNDERLAY send-community
+   neighbor 172.16.0.0 peer group UNDERLAY
+   neighbor 172.16.240.0 peer group OVERLAY
+   neighbor 172.16.250.1 peer group INTERLINK
+   redistribute connected route-map LOOPBACK
+   !
+   vlan-aware-bundle A
+      rd 172.16.240.1:10000
+      route-target both 10000:10000
+      redistribute learned
+      redistribute router-mac system
+      no redistribute host-route
+      vlan 10
+   !
+   address-family evpn
+      neighbor OVERLAY activate
+   !
+   address-family ipv4
+      neighbor FIREWALL_INT_VRF_A activate
+      neighbor FIREWALL_INT_VRF_B activate
+      neighbor FIREWALL_INT_VRF_C activate
+      neighbor INTERLINK activate
+      neighbor UNDERLAY activate
+   !
+   vrf A
+      neighbor 172.16.150.12 peer group FIREWALL_INT_VRF_A
+      neighbor 172.16.150.13 peer group FIREWALL_INT_VRF_A
+      redistribute connected
+   !
+   vrf B
+      neighbor 172.16.150.20 peer group FIREWALL_INT_VRF_B
+      neighbor 172.16.150.21 peer group FIREWALL_INT_VRF_B
+      redistribute connected
+   !
+   vrf C
+      neighbor 172.16.150.28 peer group FIREWALL_INT_VRF_C
+      neighbor 172.16.150.29 peer group FIREWALL_INT_VRF_C
+      redistribute connected
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

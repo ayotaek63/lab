@@ -1,0 +1,91 @@
+---
+DC1-BORDER-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.11
+DC1-BORDER-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.16
+DC1-DCI-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.3
+DC1-FW-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.12
+DC1-FW-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.6
+DC1-SPINE-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.5
+DC2-BORDER-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.14
+DC2-BORDER-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.19
+DC2-DCI-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.10
+DC2-FW-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.2
+DC2-FW-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.17
+DC2-SPINE-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.13
+DC3-BORDER-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.15
+DC3-BORDER-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.4
+DC3-DCI-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.7
+DC3-FW-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.8
+DC3-FW-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.9
+DC3-SPINE-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.18

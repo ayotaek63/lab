@@ -1,0 +1,84 @@
+! Startup-config last modified at Mon Jul 14 07:39:46 2025 by admin
+! device: DC1-FW-02 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$w.R8.Zm3K6pTtP9a$8rlDGBYS8gl3ODvnqlFwyWV4DDzaBJzsbyKSi6.XJ4Z1MJCKrayvD/e1M0LgGsFpTNXNSQDiNlOoGCWjGGmiI0
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC1-FW-02
+!
+spanning-tree mode rapid-pvst
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 4001-4003
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Port-Channel1
+   switchport mode trunk
+!
+interface Ethernet1
+   channel-group 1 mode active
+!
+interface Ethernet2
+   channel-group 1 mode active
+!
+interface Loopback0
+   ip address 172.16.249.2/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.6/24
+!
+interface Vlan4001
+   ip address 172.16.150.13/29
+!
+interface Vlan4002
+   ip address 172.16.150.21/29
+!
+interface Vlan4003
+   ip address 172.16.150.29/29
+!
+ip routing
+no ip routing vrf MGMT
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map REMOVE_BORDER_AS permit 10
+   set as-path match all replacement none
+!
+router bgp 65004
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

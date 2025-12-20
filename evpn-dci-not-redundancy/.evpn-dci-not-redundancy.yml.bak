@@ -1,0 +1,212 @@
+# topology name
+name: evpn-dci-not-redundancy
+
+mgmt:
+  network: management_network
+  ipv4-subnet: 192.168.255.0/24
+  ipv4-gw: 192.168.255.1
+
+#[ip address]:50080
+#The higher the number, the higher the layout
+#Applied from 'node:' to 'group'
+#sortOrder: ['10', '9', 'superspine', '8', 'dc-gw', '7', '6', 'spine', '5', '4', 'leaf', 'border-leaf', '3', 'server', '2', '1'],
+
+topology:
+  defaults:
+    env:
+      INTFTYPE: et
+
+  kinds:
+    ceos:
+      #docker image
+      image: ceos:4.34.1F-64
+      env:
+        CLAB_MGMT_VRF: MGMT
+
+  nodes:
+    DC1-SPINE-01:
+      kind: ceos
+      ports:
+        - 1001:22
+      group: spine
+
+    DC1-BORDER-01:
+      kind: ceos
+      ports:
+        - 1101:22
+      group: leaf
+    DC1-BORDER-02:
+      kind: ceos
+      ports:
+        - 1102:22
+      group: leaf
+
+    DC1-FW-01:
+      kind: ceos
+      ports:
+        - 1401:22
+      group: server
+    DC1-FW-02:
+      kind: ceos
+      ports:
+        - 1402:22
+      group: server
+
+    DC1-DCI-01-FOR-DC2:
+      kind: ceos
+      ports:
+        - 1501:22
+      group: dc-gw
+
+    DC1-DCI-01-FOR-DC3:
+      kind: ceos
+      ports:
+        - 1601:22
+      group: dc-gw
+
+
+
+    DC2-SPINE-01:
+      kind: ceos
+      ports:
+        - 2001:22
+      group: spine
+
+    DC2-BORDER-01:
+      kind: ceos
+      ports:
+        - 2101:22
+      group: leaf
+    DC2-BORDER-02:
+      kind: ceos
+      ports:
+        - 2102:22
+      group: leaf
+
+    DC2-FW-01:
+      kind: ceos
+      ports:
+        - 2401:22
+      group: server
+    DC2-FW-02:
+      kind: ceos
+      ports:
+        - 2402:22
+      group: server
+
+    DC2-DCI-01-FOR-DC1:
+      kind: ceos
+      ports:
+        - 2501:22
+      group: dc-gw
+
+    DC2-DCI-01-FOR-DC3:
+      kind: ceos
+      ports:
+        - 2601:22
+      group: dc-gw
+
+
+
+    DC3-SPINE-01:
+      kind: ceos
+      ports:
+        - 3001:22
+      group: spine
+
+    DC3-BORDER-01:
+      kind: ceos
+      ports:
+        - 3101:22
+      group: leaf
+    DC3-BORDER-02:
+      kind: ceos
+      ports:
+        - 3102:22
+      group: leaf
+
+    DC3-FW-01:
+      kind: ceos
+      ports:
+        - 3401:22
+      group: server
+    DC3-FW-02:
+      kind: ceos
+      ports:
+        - 3402:22
+      group: server
+
+    DC3-DCI-01-FOR-DC1:
+      kind: ceos
+      ports:
+        - 3501:22
+      group: dc-gw
+
+    DC3-DCI-01-FOR-DC2:
+      kind: ceos
+      ports:
+        - 3601:22
+      group: dc-gw
+
+
+
+  links:
+    #dc1-spine-01
+    - endpoints: ["DC1-SPINE-01:et1", "DC1-BORDER-01:et49"]
+    - endpoints: ["DC1-SPINE-01:et2", "DC1-BORDER-02:et49"]
+    - endpoints: ["DC1-SPINE-01:et11", "DC1-DCI-01-FOR-DC2:et49"]
+    - endpoints: ["DC1-SPINE-01:et13", "DC1-DCI-01-FOR-DC3:et49"]
+
+    #dc1-interlink
+    - endpoints: ["DC1-BORDER-01:et55", "DC1-BORDER-02:et55"]
+    - endpoints: ["DC1-BORDER-01:et56", "DC1-BORDER-02:et56"]
+
+    #dc1-border-fw
+    - endpoints: ["DC1-BORDER-01:et1", "DC1-FW-01:et1"]
+    - endpoints: ["DC1-BORDER-01:et2", "DC1-FW-02:et1"]
+    - endpoints: ["DC1-BORDER-02:et1", "DC1-FW-01:et2"]
+    - endpoints: ["DC1-BORDER-02:et2", "DC1-FW-02:et2"]
+
+
+
+    #dc2-spine-01
+    - endpoints: ["DC2-SPINE-01:et1", "DC2-BORDER-01:et49"]
+    - endpoints: ["DC2-SPINE-01:et2", "DC2-BORDER-02:et49"]
+    - endpoints: ["DC2-SPINE-01:et11", "DC2-DCI-01-FOR-DC1:et49"]
+    - endpoints: ["DC2-SPINE-01:et13", "DC2-DCI-01-FOR-DC3:et49"]
+    
+    #dc2-interlink
+    - endpoints: ["DC2-BORDER-01:et55", "DC2-BORDER-02:et55"]
+    - endpoints: ["DC2-BORDER-01:et56", "DC2-BORDER-02:et56"]
+
+    #dc2-border-fw
+    - endpoints: ["DC2-BORDER-01:et1", "DC2-FW-01:et1"]
+    - endpoints: ["DC2-BORDER-01:et2", "DC2-FW-02:et1"]
+    - endpoints: ["DC2-BORDER-02:et1", "DC2-FW-01:et2"]
+    - endpoints: ["DC2-BORDER-02:et2", "DC2-FW-02:et2"]
+
+
+
+    #dc3-spine-01
+    - endpoints: ["DC3-SPINE-01:et1", "DC3-BORDER-01:et49"]
+    - endpoints: ["DC3-SPINE-01:et2", "DC3-BORDER-02:et49"]
+    - endpoints: ["DC3-SPINE-01:et11", "DC3-DCI-01-FOR-DC1:et49"]
+    - endpoints: ["DC3-SPINE-01:et13", "DC3-DCI-01-FOR-DC2:et49"]
+    
+    #dc3-interlink
+    - endpoints: ["DC3-BORDER-01:et55", "DC3-BORDER-02:et55"]
+    - endpoints: ["DC3-BORDER-01:et56", "DC3-BORDER-02:et56"]
+
+    #dc3-border-fw
+    - endpoints: ["DC3-BORDER-01:et1", "DC3-FW-01:et1"]
+    - endpoints: ["DC3-BORDER-01:et2", "DC3-FW-02:et1"]
+    - endpoints: ["DC3-BORDER-02:et1", "DC3-FW-01:et2"]
+    - endpoints: ["DC3-BORDER-02:et2", "DC3-FW-02:et2"]
+
+
+
+    #dc1-dc2-dc3
+    - endpoints: ["DC1-DCI-01-FOR-DC2:et1", "DC2-DCI-01-FOR-DC1:et1"]
+    - endpoints: ["DC1-DCI-01-FOR-DC3:et1", "DC3-DCI-01-FOR-DC1:et1"]
+    - endpoints: ["DC2-DCI-01-FOR-DC3:et1", "DC3-DCI-01-FOR-DC2:et1"]
+

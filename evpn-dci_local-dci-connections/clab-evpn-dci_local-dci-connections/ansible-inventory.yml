@@ -1,0 +1,45 @@
+all:
+  vars:
+    # The generated inventory is assumed to be used from the clab host.
+    # Hence no http proxy should be used. Therefore we make sure the http
+    # module does not attempt using any global http proxy.
+    ansible_httpapi_use_proxy: false
+  children:
+    ceos:
+      vars:
+        # ansible_connection: set ansible_connection variable if required
+        ansible_user: admin
+        ansible_password: admin
+      hosts:
+        clab-evpn-dci_local-dci-connections-DC1-BORDER-01:
+          ansible_host: 192.168.255.2
+        clab-evpn-dci_local-dci-connections-DC1-DCI-01-FOR-DC2:
+          ansible_host: 192.168.255.10
+        clab-evpn-dci_local-dci-connections-DC1-DCI-01-FOR-DC3:
+          ansible_host: 192.168.255.12
+        clab-evpn-dci_local-dci-connections-DC1-FW-01:
+          ansible_host: 192.168.255.7
+        clab-evpn-dci_local-dci-connections-DC1-LEAF-01:
+          ansible_host: 192.168.255.8
+        clab-evpn-dci_local-dci-connections-DC1-SPINE-01:
+          ansible_host: 192.168.255.15
+        clab-evpn-dci_local-dci-connections-DC2-BORDER-01:
+          ansible_host: 192.168.255.16
+        clab-evpn-dci_local-dci-connections-DC2-DCI-01-FOR-DC1:
+          ansible_host: 192.168.255.17
+        clab-evpn-dci_local-dci-connections-DC2-DCI-01-FOR-DC3:
+          ansible_host: 192.168.255.14
+        clab-evpn-dci_local-dci-connections-DC2-FW-01:
+          ansible_host: 192.168.255.5
+        clab-evpn-dci_local-dci-connections-DC2-SPINE-01:
+          ansible_host: 192.168.255.11
+        clab-evpn-dci_local-dci-connections-DC3-BORDER-01:
+          ansible_host: 192.168.255.6
+        clab-evpn-dci_local-dci-connections-DC3-DCI-01-FOR-DC1:
+          ansible_host: 192.168.255.13
+        clab-evpn-dci_local-dci-connections-DC3-DCI-01-FOR-DC2:
+          ansible_host: 192.168.255.3
+        clab-evpn-dci_local-dci-connections-DC3-FW-01:
+          ansible_host: 192.168.255.4
+        clab-evpn-dci_local-dci-connections-DC3-SPINE-01:
+          ansible_host: 192.168.255.9

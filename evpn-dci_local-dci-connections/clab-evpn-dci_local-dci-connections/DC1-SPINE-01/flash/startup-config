@@ -1,0 +1,117 @@
+! Startup-config last modified at Tue Aug 26 01:30:36 2025 by admin
+! device: DC1-SPINE-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$WUpda87kWqhUg.Ns$tQmso17Qf72DVlx8rpv9CWj4Na3DF7bRgpxTw32Q4g5YrHOFpU4NA2ypK7IZKdidMIfC0GlkylrBgUSFBi7yu/
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC1-SPINE-01
+!
+spanning-tree mode rapid-pvst
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Ethernet1
+   mtu 9214
+   no switchport
+   ip address 172.16.0.0/31
+!
+interface Ethernet2
+   mtu 9214
+   no switchport
+   ip address 172.16.0.2/31
+!
+interface Ethernet11
+   mtu 9214
+   no switchport
+   ip address 172.16.0.20/31
+!
+interface Ethernet13
+   mtu 9214
+   no switchport
+   ip address 172.16.0.24/31
+!
+interface Ethernet21
+   mtu 9214
+   no switchport
+   ip address 172.16.0.4/31
+!
+interface Loopback0
+   ip address 172.16.240.0/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.15/24
+!
+ip routing
+no ip routing vrf MGMT
+!
+ip prefix-list LOOPBACK
+   seq 10 permit 172.16.240.0/24 ge 32
+   seq 20 permit 172.16.241.0/24 ge 32
+   seq 30 permit 172.16.242.0/24 ge 32
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map LOOPBACK permit 10
+   match ip address prefix-list LOOPBACK
+!
+peer-filter BGP_AS
+   10 match as-range 65000-65099 result accept
+!
+router bgp 65000
+   router-id 172.16.240.0
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 8 ecmp 8
+   bgp listen range 172.16.240.0/24 peer-group OVERLAY peer-filter BGP_AS
+   bgp listen range 172.16.241.0/24 peer-group OVERLAY peer-filter BGP_AS
+   bgp listen range 172.16.0.0/24 peer-group UNDERLAY peer-filter BGP_AS
+   neighbor OVERLAY peer group
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 3
+   neighbor OVERLAY send-community
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY send-community
+   redistribute connected route-map LOOPBACK
+   !
+   address-family evpn
+      neighbor OVERLAY activate
+   !
+   address-family ipv4
+      neighbor UNDERLAY activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

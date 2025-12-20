@@ -1,0 +1,108 @@
+! Startup-config last modified at Tue Aug 26 01:30:36 2025 by admin
+! device: DC1-FW-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$A1DFxU7yYZJDoFrt$hNLh3HQMajMKNiVhI2PLym5QDEh0Mj8eKlWXOesSlxEXLRkUFcLRpwq.BtiNJ0sjZdFAEQ4PknZEWHpzY0Rwn1
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC1-FW-01
+!
+spanning-tree mode rapid-pvst
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 10
+   state suspend
+!
+vlan 4001-4003
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Port-Channel1
+   switchport mode trunk
+!
+interface Ethernet1
+   channel-group 1 mode active
+!
+interface Ethernet2
+   channel-group 1 mode active
+!
+interface Loopback0
+   ip address 172.16.249.1/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.7/24
+!
+interface Vlan10
+   shutdown
+   ip address 10.1.1.10/24
+!
+interface Vlan4001
+   ip address 172.16.150.12/29
+!
+interface Vlan4002
+   ip address 172.16.150.20/29
+!
+interface Vlan4003
+   ip address 172.16.150.28/29
+!
+ip routing
+no ip routing vrf MGMT
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map REMOVE_BORDER_AS permit 10
+   set as-path match all replacement none
+!
+router bgp 65004
+   router-id 172.16.249.1
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 8 ecmp 8
+   neighbor BORDER_INT peer group
+   neighbor BORDER_INT remote-as 65001
+   neighbor BORDER_INT route-map REMOVE_BORDER_AS out
+   neighbor BORDER_INT send-community
+   neighbor 172.16.150.9 peer group BORDER_INT
+   neighbor 172.16.150.10 peer group BORDER_INT
+   neighbor 172.16.150.17 peer group BORDER_INT
+   neighbor 172.16.150.18 peer group BORDER_INT
+   neighbor 172.16.150.25 peer group BORDER_INT
+   neighbor 172.16.150.26 peer group BORDER_INT
+   !
+   address-family ipv4
+      neighbor BORDER_INT activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

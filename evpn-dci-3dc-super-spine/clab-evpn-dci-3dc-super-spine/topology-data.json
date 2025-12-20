@@ -1,0 +1,1258 @@
+{
+  "name": "evpn-dci-3dc-super-spine",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "management_network",
+        "bridge": "br-ca8700a32a88",
+        "ipv4-subnet": "192.168.255.0/24",
+        "ipv4-gw": "192.168.255.1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": [],
+  "nodes": {
+    "DC1-BORDER-01": {
+      "index": "0",
+      "shortname": "DC1-BORDER-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC1-BORDER-01",
+      "fqdn": "DC1-BORDER-01.evpn-dci-3dc-super-spine.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-BORDER-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.9",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:57:06:6a",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-BORDER-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC1-BORDER-01",
+        "clab-node-name": "DC1-BORDER-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1101,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1101,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC1-BORDER-02": {
+      "index": "1",
+      "shortname": "DC1-BORDER-02",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC1-BORDER-02",
+      "fqdn": "DC1-BORDER-02.evpn-dci-3dc-super-spine.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-BORDER-02",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.11",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:bc:83:ef",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-BORDER-02",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC1-BORDER-02",
+        "clab-node-name": "DC1-BORDER-02",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1102,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1102,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC1-DCI-01": {
+      "index": "2",
+      "shortname": "DC1-DCI-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC1-DCI-01",
+      "fqdn": "DC1-DCI-01.evpn-dci-3dc-super-spine.io",
+      "group": "dc-gw",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-DCI-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.16",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:b5:b0:69",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "dc-gw",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-DCI-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC1-DCI-01",
+        "clab-node-name": "DC1-DCI-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1501,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1501,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC1-FW-01": {
+      "index": "3",
+      "shortname": "DC1-FW-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC1-FW-01",
+      "fqdn": "DC1-FW-01.evpn-dci-3dc-super-spine.io",
+      "group": "server",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-FW-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.8",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:61:ad:36",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "server",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-FW-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC1-FW-01",
+        "clab-node-name": "DC1-FW-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1401,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1401,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC1-FW-02": {
+      "index": "4",
+      "shortname": "DC1-FW-02",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC1-FW-02",
+      "fqdn": "DC1-FW-02.evpn-dci-3dc-super-spine.io",
+      "group": "server",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-FW-02",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.12",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:26:cd:b3",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "server",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-FW-02",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC1-FW-02",
+        "clab-node-name": "DC1-FW-02",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1402,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1402,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC1-SPINE-01": {
+      "index": "5",
+      "shortname": "DC1-SPINE-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC1-SPINE-01",
+      "fqdn": "DC1-SPINE-01.evpn-dci-3dc-super-spine.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-SPINE-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.17",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:61:f0:37",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC1-SPINE-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC1-SPINE-01",
+        "clab-node-name": "DC1-SPINE-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1001,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1001,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC2-BORDER-01": {
+      "index": "6",
+      "shortname": "DC2-BORDER-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC2-BORDER-01",
+      "fqdn": "DC2-BORDER-01.evpn-dci-3dc-super-spine.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-BORDER-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.19",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:a9:d2:a5",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-BORDER-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC2-BORDER-01",
+        "clab-node-name": "DC2-BORDER-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 2101,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 2101,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC2-BORDER-02": {
+      "index": "7",
+      "shortname": "DC2-BORDER-02",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC2-BORDER-02",
+      "fqdn": "DC2-BORDER-02.evpn-dci-3dc-super-spine.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-BORDER-02",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.13",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:f5:d6:86",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-BORDER-02",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC2-BORDER-02",
+        "clab-node-name": "DC2-BORDER-02",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 2102,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 2102,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC2-DCI-01": {
+      "index": "8",
+      "shortname": "DC2-DCI-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC2-DCI-01",
+      "fqdn": "DC2-DCI-01.evpn-dci-3dc-super-spine.io",
+      "group": "dc-gw",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-DCI-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.18",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:19:1d:8c",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "dc-gw",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-DCI-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC2-DCI-01",
+        "clab-node-name": "DC2-DCI-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 2501,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 2501,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC2-FW-01": {
+      "index": "9",
+      "shortname": "DC2-FW-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC2-FW-01",
+      "fqdn": "DC2-FW-01.evpn-dci-3dc-super-spine.io",
+      "group": "server",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-FW-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.10",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:34:34:30",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "server",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-FW-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC2-FW-01",
+        "clab-node-name": "DC2-FW-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 2401,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 2401,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC2-FW-02": {
+      "index": "10",
+      "shortname": "DC2-FW-02",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC2-FW-02",
+      "fqdn": "DC2-FW-02.evpn-dci-3dc-super-spine.io",
+      "group": "server",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-FW-02",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.7",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:95:8f:5d",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "server",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-FW-02",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC2-FW-02",
+        "clab-node-name": "DC2-FW-02",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 2402,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 2402,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC2-SPINE-01": {
+      "index": "11",
+      "shortname": "DC2-SPINE-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC2-SPINE-01",
+      "fqdn": "DC2-SPINE-01.evpn-dci-3dc-super-spine.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-SPINE-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.5",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:16:e6:23",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC2-SPINE-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC2-SPINE-01",
+        "clab-node-name": "DC2-SPINE-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 2001,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 2001,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC3-BORDER-01": {
+      "index": "12",
+      "shortname": "DC3-BORDER-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC3-BORDER-01",
+      "fqdn": "DC3-BORDER-01.evpn-dci-3dc-super-spine.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-BORDER-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.14",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:50:9d:fe",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-BORDER-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC3-BORDER-01",
+        "clab-node-name": "DC3-BORDER-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 3101,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 3101,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC3-BORDER-02": {
+      "index": "13",
+      "shortname": "DC3-BORDER-02",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC3-BORDER-02",
+      "fqdn": "DC3-BORDER-02.evpn-dci-3dc-super-spine.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-BORDER-02",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:d7:17:cc",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-BORDER-02",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC3-BORDER-02",
+        "clab-node-name": "DC3-BORDER-02",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 3102,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 3102,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC3-DCI-01": {
+      "index": "14",
+      "shortname": "DC3-DCI-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC3-DCI-01",
+      "fqdn": "DC3-DCI-01.evpn-dci-3dc-super-spine.io",
+      "group": "dc-gw",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-DCI-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:46:88:12",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "dc-gw",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-DCI-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC3-DCI-01",
+        "clab-node-name": "DC3-DCI-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 3501,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 3501,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC3-FW-01": {
+      "index": "15",
+      "shortname": "DC3-FW-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC3-FW-01",
+      "fqdn": "DC3-FW-01.evpn-dci-3dc-super-spine.io",
+      "group": "server",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-FW-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.6",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:6a:ce:9e",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "server",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-FW-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC3-FW-01",
+        "clab-node-name": "DC3-FW-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 3401,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 3401,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC3-FW-02": {
+      "index": "16",
+      "shortname": "DC3-FW-02",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC3-FW-02",
+      "fqdn": "DC3-FW-02.evpn-dci-3dc-super-spine.io",
+      "group": "server",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-FW-02",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.20",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:e0:6b:a7",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "server",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-FW-02",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC3-FW-02",
+        "clab-node-name": "DC3-FW-02",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 3402,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 3402,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "DC3-SPINE-01": {
+      "index": "17",
+      "shortname": "DC3-SPINE-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-DC3-SPINE-01",
+      "fqdn": "DC3-SPINE-01.evpn-dci-3dc-super-spine.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-SPINE-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:a6:07:0f",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/DC3-SPINE-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-DC3-SPINE-01",
+        "clab-node-name": "DC3-SPINE-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 3001,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 3001,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SUPER-SPINE-01": {
+      "index": "18",
+      "shortname": "SUPER-SPINE-01",
+      "longname": "clab-evpn-dci-3dc-super-spine-SUPER-SPINE-01",
+      "fqdn": "SUPER-SPINE-01.evpn-dci-3dc-super-spine.io",
+      "group": "superspine",
+      "labdir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/SUPER-SPINE-01",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.15",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:b4:d8:ad",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-ca8700a32a88",
+        "clab-node-group": "superspine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/clab-evpn-dci-3dc-super-spine/SUPER-SPINE-01",
+        "clab-node-longname": "clab-evpn-dci-3dc-super-spine-SUPER-SPINE-01",
+        "clab-node-name": "SUPER-SPINE-01",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/evpn-dci-3dc-super-spine/evpn-dci-3dc-super-spine.yml",
+        "containerlab": "evpn-dci-3dc-super-spine"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 3601,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 3601,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "DC1-SPINE-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:93:bd:24",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-BORDER-01",
+        "interface": "et49",
+        "mac": "aa:c1:ab:e8:10:98",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-SPINE-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:cc:c3:7a",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-BORDER-02",
+        "interface": "et49",
+        "mac": "aa:c1:ab:44:bf:3f",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-SPINE-01",
+        "interface": "et11",
+        "mac": "aa:c1:ab:a4:52:23",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-DCI-01",
+        "interface": "et49",
+        "mac": "aa:c1:ab:84:dc:e7",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-BORDER-01",
+        "interface": "et55",
+        "mac": "aa:c1:ab:4e:e9:3d",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-BORDER-02",
+        "interface": "et55",
+        "mac": "aa:c1:ab:62:b5:5c",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-BORDER-01",
+        "interface": "et56",
+        "mac": "aa:c1:ab:47:99:7d",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-BORDER-02",
+        "interface": "et56",
+        "mac": "aa:c1:ab:7f:cb:48",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-BORDER-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:9d:2b:a5",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-FW-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:f8:0b:18",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-BORDER-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:b3:47:ba",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-FW-02",
+        "interface": "et1",
+        "mac": "aa:c1:ab:74:de:69",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-BORDER-02",
+        "interface": "et1",
+        "mac": "aa:c1:ab:5c:5c:77",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-FW-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:23:73:4d",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC1-BORDER-02",
+        "interface": "et2",
+        "mac": "aa:c1:ab:b5:13:4a",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-FW-02",
+        "interface": "et2",
+        "mac": "aa:c1:ab:94:ae:8e",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-SPINE-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:20:26:07",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-BORDER-01",
+        "interface": "et49",
+        "mac": "aa:c1:ab:58:87:00",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-SPINE-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:c7:a4:62",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-BORDER-02",
+        "interface": "et49",
+        "mac": "aa:c1:ab:c1:b3:dc",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-SPINE-01",
+        "interface": "et11",
+        "mac": "aa:c1:ab:39:0c:19",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-DCI-01",
+        "interface": "et49",
+        "mac": "aa:c1:ab:f6:f1:f7",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-BORDER-01",
+        "interface": "et55",
+        "mac": "aa:c1:ab:d6:5b:ce",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-BORDER-02",
+        "interface": "et55",
+        "mac": "aa:c1:ab:98:46:ad",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-BORDER-01",
+        "interface": "et56",
+        "mac": "aa:c1:ab:f7:5a:8d",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-BORDER-02",
+        "interface": "et56",
+        "mac": "aa:c1:ab:b9:fb:93",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-BORDER-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:3f:b1:f5",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-FW-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:29:6e:8d",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-BORDER-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:7f:42:dc",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-FW-02",
+        "interface": "et1",
+        "mac": "aa:c1:ab:6e:11:6c",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-BORDER-02",
+        "interface": "et1",
+        "mac": "aa:c1:ab:ed:a1:fb",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-FW-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:a9:d7:00",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC2-BORDER-02",
+        "interface": "et2",
+        "mac": "aa:c1:ab:ec:1e:69",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-FW-02",
+        "interface": "et2",
+        "mac": "aa:c1:ab:3f:a5:fd",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-SPINE-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:28:ad:da",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-BORDER-01",
+        "interface": "et49",
+        "mac": "aa:c1:ab:4a:49:27",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-SPINE-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:bd:72:36",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-BORDER-02",
+        "interface": "et49",
+        "mac": "aa:c1:ab:6e:cf:d8",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-SPINE-01",
+        "interface": "et11",
+        "mac": "aa:c1:ab:bb:97:6b",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-DCI-01",
+        "interface": "et49",
+        "mac": "aa:c1:ab:93:b6:c8",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-BORDER-01",
+        "interface": "et55",
+        "mac": "aa:c1:ab:31:e1:94",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-BORDER-02",
+        "interface": "et55",
+        "mac": "aa:c1:ab:69:0d:fa",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-BORDER-01",
+        "interface": "et56",
+        "mac": "aa:c1:ab:4e:aa:41",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-BORDER-02",
+        "interface": "et56",
+        "mac": "aa:c1:ab:82:bf:97",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-BORDER-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:9e:48:e6",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-FW-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:fd:3d:50",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-BORDER-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:bf:01:77",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-FW-02",
+        "interface": "et1",
+        "mac": "aa:c1:ab:af:09:7d",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-BORDER-02",
+        "interface": "et1",
+        "mac": "aa:c1:ab:8e:c4:ca",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-FW-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:47:5e:bd",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "DC3-BORDER-02",
+        "interface": "et2",
+        "mac": "aa:c1:ab:ce:3c:d9",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-FW-02",
+        "interface": "et2",
+        "mac": "aa:c1:ab:9c:1b:7a",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SUPER-SPINE-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:e5:50:99",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC1-DCI-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:c4:1f:94",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SUPER-SPINE-01",
+        "interface": "et2",
+        "mac": "aa:c1:ab:3f:87:bb",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC2-DCI-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:87:32:a6",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SUPER-SPINE-01",
+        "interface": "et3",
+        "mac": "aa:c1:ab:f2:57:94",
+        "peer": "z"
+      },
+      "z": {
+        "node": "DC3-DCI-01",
+        "interface": "et1",
+        "mac": "aa:c1:ab:9f:d6:0f",
+        "peer": "a"
+      }
+    }
+  ]
+}

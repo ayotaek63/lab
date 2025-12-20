@@ -1,0 +1,157 @@
+# topology name
+name: leaf-spine
+
+mgmt:
+  network: management_network
+  ipv4-subnet: 192.168.255.0/24
+  ipv4-gw: 192.168.255.1
+
+#[ip address]:50080
+#The higher the number, the higher the layout
+#Applied from 'node:' to 'group'
+#sortOrder: ['10', '9', 'superspine', '8', 'dc-gw', '7', '6', 'spine', '5', '4', 'leaf', 'border-leaf', '3', 'server', '2', '1'],
+
+topology:
+  defaults:
+    env:
+      INTFTYPE: et
+
+  kinds:
+    ceos:
+      #docker image
+      image: ceos:4.34.1F-64
+      env:
+        CLAB_MGMT_VRF: MGMT
+
+  nodes:
+    SPINE-01:
+      kind: ceos
+      ports:
+        - 1001:22
+      group: spine
+    SPINE-02:
+      kind: ceos
+      ports:
+        - 1002:22
+      group: spine
+
+    BORDER-01:
+      kind: ceos
+      ports:
+        - 1101:22
+      group: leaf
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: SPINE-01
+    BORDER-02:
+      kind: ceos
+      ports:
+        - 1102:22
+      group: leaf
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: SPINE-01
+
+    LEAF-01:
+      kind: ceos
+      ports:
+        - 1201:22
+      group: leaf
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: BORDER-01
+    LEAF-02:
+      kind: ceos
+      ports:
+        - 1202:22
+      group: leaf
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: BORDER-01
+    LEAF-03:
+      kind: ceos
+      ports:
+        - 1203:22
+      group: leaf
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: BORDER-01
+    LEAF-04:
+      kind: ceos
+      ports:
+        - 1204:22
+      group: leaf
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: BORDER-01
+
+    HOST-01:
+      kind: ceos
+      ports:
+        - 1301:22
+      group: server
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: LEAF-01
+    HOST-02:
+      kind: ceos
+      ports:
+        - 1302:22
+      group: server
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: LEAF-01
+
+    FW-01:
+      kind: ceos
+      ports:
+        - 1401:22
+      group: server
+      #stages:
+      #  create:
+      #    wait-for:
+      #      - node: HOST-01
+
+  links:
+    #spine-01
+    - endpoints: ["SPINE-01:et1_1", "BORDER-01:et49_1"]
+    - endpoints: ["SPINE-01:et2_1", "BORDER-02:et49_1"]
+    - endpoints: ["SPINE-01:et11_1", "LEAF-01:et49_1"]
+    - endpoints: ["SPINE-01:et12_1", "LEAF-02:et49_1"]
+    - endpoints: ["SPINE-01:et13_1", "LEAF-03:et49_1"]
+    - endpoints: ["SPINE-01:et14_1", "LEAF-04:et49_1"]
+
+    #spine-02
+    - endpoints: ["SPINE-02:et1_1", "BORDER-01:et50_1"]
+    - endpoints: ["SPINE-02:et2_1", "BORDER-02:et50_1"]
+    - endpoints: ["SPINE-02:et11_1", "LEAF-01:et50_1"]
+    - endpoints: ["SPINE-02:et12_1", "LEAF-02:et50_1"]
+    - endpoints: ["SPINE-02:et13_1", "LEAF-03:et50_1"]
+    - endpoints: ["SPINE-02:et14_1", "LEAF-04:et50_1"]
+
+    #interlink
+    - endpoints: ["BORDER-01:et55_1", "BORDER-02:et55_1"]
+    - endpoints: ["BORDER-01:et56_1", "BORDER-02:et56_1"]
+    - endpoints: ["LEAF-01:et55_1", "LEAF-02:et55_1"]
+    - endpoints: ["LEAF-01:et56_1", "LEAF-02:et56_1"]
+    - endpoints: ["LEAF-03:et55_1", "LEAF-04:et55_1"]
+    - endpoints: ["LEAF-03:et56_1", "LEAF-04:et56_1"]
+
+    #hosts
+    - endpoints: ["HOST-01:et1", "LEAF-01:et1"]
+    - endpoints: ["HOST-01:et2", "LEAF-02:et1"]
+    - endpoints: ["HOST-02:et1", "LEAF-03:et1"]
+    - endpoints: ["HOST-02:et2", "LEAF-04:et1"]
+
+    #fw
+    - endpoints: ["FW-01:et1", "BORDER-01:et1"]
+    - endpoints: ["FW-01:et2", "BORDER-02:et1"]
+    

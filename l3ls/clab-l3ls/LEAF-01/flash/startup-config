@@ -1,0 +1,108 @@
+! Startup-config last modified at Tue Jul  8 03:26:33 2025 by root
+! device: LEAF-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$C40WZ60gkv0cb16f$AgFXZkwrDeb2DOQJvhC4IsSI2dMxmNO9VKH5RNZEDioVdXo5e1EqcClft/khrijcAOYCHVmJkwUg4WZ3g2gje/
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname LEAF-01
+!
+spanning-tree mode mstp
+no spanning-tree vlan-id 4094
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 4094
+   trunk group MLAG
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Port-Channel2000
+   switchport mode trunk
+   switchport trunk group MLAG
+!
+interface Ethernet1
+!
+interface Ethernet49/1
+   no switchport
+   ip address 172.16.0.5/31
+!
+interface Ethernet50/1
+   no switchport
+   ip address 172.16.1.5/31
+!
+interface Ethernet55/1
+   channel-group 2000 mode active
+!
+interface Ethernet56/1
+   channel-group 2000 mode active
+!
+interface Loopback0
+   ip address 172.16.254.11/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.4/24
+!
+interface Vlan4094
+   no autostate
+   ip address 172.16.255.254/31
+!
+ip routing
+no ip routing vrf MGMT
+!
+mlag configuration
+   domain-id LEAF-1,2
+   local-interface Vlan4094
+   peer-address 172.16.255.255
+   peer-link Port-Channel2000
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+router bgp 65011
+   router-id 172.16.254.11
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   graceful-restart restart-time 300
+   graceful-restart
+   maximum-paths 8 ecmp 8
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY remote-as 65000
+   neighbor 172.16.0.4 peer group UNDERLAY
+   neighbor 172.16.1.4 peer group UNDERLAY
+   !
+   address-family ipv4
+      neighbor UNDERLAY activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

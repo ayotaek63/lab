@@ -1,0 +1,145 @@
+! Startup-config last modified at Mon Jul 14 07:39:48 2025 by admin
+! device: DC3-BORDER-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$A8ThMvhsGTXOqPP1$XVnfQpaLyFMCL9LdjXEA0eeMD.Xhk5GrlxPr/8APkMVl2SjRXkEPj80tL1ZtFFcPuqiTs2GhlemcQayW7gxLD.
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC3-BORDER-01
+!
+spanning-tree mode rapid-pvst
+no spanning-tree vlan-id 4093-4094
+spanning-tree vlan-id 1-4094 priority 4096
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 4093
+   trunk group INTERLINK
+!
+vlan 4094
+   trunk group MLAG
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Port-Channel2000
+   switchport mode trunk
+   switchport trunk group INTERLINK
+   switchport trunk group MLAG
+!
+interface Ethernet1
+!
+interface Ethernet2
+!
+interface Ethernet49
+   mtu 9214
+   no switchport
+   ip address 172.16.2.1/31
+!
+interface Ethernet55
+   channel-group 2000 mode active
+!
+interface Ethernet56
+   channel-group 2000 mode active
+!
+interface Loopback0
+   ip address 172.16.246.1/32
+!
+interface Loopback1
+   ip address 172.16.248.1/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.15/24
+!
+interface Vlan4093
+   no autostate
+   ip address 172.16.250.0/31
+!
+interface Vlan4094
+   no autostate
+   ip address 172.16.255.254/31
+!
+ip routing
+no ip routing vrf MGMT
+!
+ip prefix-list LOOPBACK
+   seq 10 permit 172.16.246.0/24 ge 32
+   seq 20 permit 172.16.247.0/24 ge 32
+   seq 30 permit 172.16.248.0/24 ge 32
+!
+mlag configuration
+   domain-id DC3-BORDER-1,2
+   local-interface Vlan4094
+   peer-address 172.16.255.255
+   peer-link Port-Channel2000
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map INTERLINK permit 10
+   set origin incomplete
+!
+route-map LOOPBACK permit 10
+   match ip address prefix-list LOOPBACK
+!
+router bgp 65201
+   router-id 172.16.246.1
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 8 ecmp 8
+   neighbor INTERLINK peer group
+   neighbor INTERLINK remote-as 65201
+   neighbor INTERLINK next-hop-self
+   neighbor INTERLINK route-map INTERLINK in
+   neighbor INTERLINK send-community
+   neighbor OVERLAY peer group
+   neighbor OVERLAY remote-as 65200
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 3
+   neighbor OVERLAY send-community
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY remote-as 65200
+   neighbor UNDERLAY send-community
+   neighbor 172.16.2.0 peer group UNDERLAY
+   neighbor 172.16.246.0 peer group OVERLAY
+   neighbor 172.16.250.1 peer group INTERLINK
+   redistribute connected route-map LOOPBACK
+   !
+   address-family evpn
+      neighbor OVERLAY activate
+   !
+   address-family ipv4
+      neighbor INTERLINK activate
+      neighbor UNDERLAY activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

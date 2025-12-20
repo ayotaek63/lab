@@ -1,0 +1,123 @@
+! Startup-config last modified at Tue Aug 26 01:30:36 2025 by admin
+! device: DC3-DCI-01-FOR-DC2 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$7J8TNO2tEfEk20C2$lzH29g8yh3IgwIN68.1REFgZOUUzrkgasXrMgQYKMCdBvjrTT99OcZv3lNrdFsjyJZITypzd83qnmrl0P2g/k0
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC3-DCI-01-FOR-DC2
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vrf instance A
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Ethernet1
+   mtu 9214
+   no switchport
+   ip address 172.16.3.9/31
+!
+interface Ethernet3
+!
+interface Ethernet49
+   mtu 9214
+   no switchport
+   ip address 172.16.2.25/31
+!
+interface Loopback0
+   ip address 172.16.246.3/32
+!
+interface Loopback1
+   ip address 172.16.248.3/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.3/24
+!
+ip routing
+ip routing vrf A
+no ip routing vrf MGMT
+!
+ip prefix-list LOOPBACK
+   seq 10 permit 172.16.246.0/24 ge 32
+   seq 20 permit 172.16.247.0/24 ge 32
+   seq 30 permit 172.16.248.0/24 ge 32
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map LOOPBACK permit 10
+   match ip address prefix-list LOOPBACK
+!
+router bgp 65203
+   router-id 172.16.246.3
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 8 ecmp 8
+   neighbor DCI_OVERLAY peer group
+   neighbor DCI_OVERLAY remote-as 65103
+   neighbor DCI_OVERLAY update-source Loopback0
+   neighbor DCI_OVERLAY ebgp-multihop 3
+   neighbor DCI_OVERLAY send-community
+   neighbor DCI_UNDERLAY peer group
+   neighbor DCI_UNDERLAY remote-as 65103
+   neighbor DCI_UNDERLAY send-community
+   neighbor OVERLAY peer group
+   neighbor OVERLAY remote-as 65200
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 3
+   neighbor OVERLAY send-community
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY remote-as 65200
+   neighbor UNDERLAY send-community
+   neighbor 172.16.2.24 peer group UNDERLAY
+   neighbor 172.16.3.8 peer group DCI_UNDERLAY
+   neighbor 172.16.243.3 peer group DCI_OVERLAY
+   neighbor 172.16.246.0 peer group OVERLAY
+   redistribute connected route-map LOOPBACK
+   !
+   address-family evpn
+      neighbor DCI_OVERLAY activate
+      neighbor DCI_OVERLAY domain remote
+      neighbor OVERLAY activate
+      neighbor default next-hop-self received-evpn-routes route-type ip-prefix
+      neighbor default next-hop-self received-evpn-routes route-type ip-prefix inter-domain
+   !
+   address-family ipv4
+      neighbor DCI_UNDERLAY activate
+      neighbor UNDERLAY activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

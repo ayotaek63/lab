@@ -1,0 +1,63 @@
+# topology name
+name: evpn-dci-3dc-super-spine
+
+mgmt:
+  network: management_network
+  ipv4-subnet: 192.168.255.0/24
+  ipv4-gw: 192.168.255.1
+
+#[ip address]:50080
+#The higher the number, the higher the layout
+#Applied from 'node:' to 'group'
+#sortOrder: ['10', '9', 'superspine', '8', 'dc-gw', '7', '6', 'spine', '5', '4', 'leaf', 'border-leaf', '3', 'server', '2', '1'],
+
+topology:
+  defaults:
+    env:
+      INTFTYPE: et
+
+  kinds:
+    ceos:
+      #docker image
+      image: ceos:4.34.1F-64
+      env:
+        CLAB_MGMT_VRF: MGMT
+
+  nodes:
+    SW1:
+      kind: ceos
+      ports:
+        - 1001:22
+      group: spine
+
+    SW2:
+      kind: ceos
+      ports:
+        - 1002:22
+      group: leaf
+
+    SW3:
+      kind: ceos
+      ports:
+        - 1003:22
+      group: spine
+
+    SW4:
+      kind: ceos
+      ports:
+        - 1004:22
+      group: leaf
+
+  links:
+    #sw1
+    - endpoints: ["SW1:et49", "SW2:et49"]
+    - endpoints: ["SW1:et1", "SW3:et1"]
+    - endpoints: ["SW1:et2", "SW4:et1"]
+
+    #sw2
+    - endpoints: ["SW2:et1", "SW3:et2"]
+    - endpoints: ["SW2:et2", "SW4:et2"]
+
+    #sw3,4
+    - endpoints: ["SW3:et49", "SW4:et49"]
+    

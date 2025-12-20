@@ -1,0 +1,111 @@
+# evpn-dci.yml
+- 스위치 리스트
+  - 총 30대
+  - DC1
+    - DC1-BORDER-01
+    - DC1-BORDER-02
+    - DC1-DCI-01-FOR-DC2
+    - DC1-DCI-02-FOR-DC2
+    - DC1-DCI-01-FOR-DC3
+    - DC1-DCI-02-FOR-DC3
+    - DC1-FW-01
+    - DC1-FW-02
+    - DC1-SPINE-01
+    - DC1-SPINE-02
+
+  - DC2
+    - DC2-BORDER-01
+    - DC2-BORDER-02
+    - DC2-DCI-01-FOR-DC1
+    - DC2-DCI-02-FOR-DC1
+    - DC2-DCI-01-FOR-DC3
+    - DC2-DCI-02-FOR-DC3
+    - DC2-FW-01
+    - DC2-FW-02
+    - DC2-SPINE-01
+    - DC2-SPINE-02
+
+  - DC3
+    - DC3-BORDER-01
+    - DC3-BORDER-02
+    - DC3-DCI-01-FOR-DC1
+    - DC3-DCI-02-FOR-DC1
+    - DC3-DCI-01-FOR-DC2
+    - DC3-DCI-02-FOR-DC2
+    - DC3-FW-01
+    - DC3-FW-02
+    - DC3-SPINE-01
+    - DC3-SPINE-02
+
+- VM spec
+  - Core : 32
+  - Memory : 64G(실사용 약 ???G)
+
+- VRF
+  - A
+  - B
+  - C
+
+- BGP AS
+
+|DC|AS|Notes|
+|---|---|---|
+|DC1|65000|SPINE|
+|DC1|65001|BORDER|
+|DC1|65002|DC1 for DC2|
+|DC1|65003|DC1 for DC3|
+|DC1|65004|FW|
+|DC2|65100|SPINE|
+|DC2|65101|BORDER|
+|DC2|65102|DC2 for DC1|
+|DC2|65103|DC2 for DC3|
+|DC2|65104|FW|
+|DC3|65200|SPINE|
+|DC3|65201|BORDER|
+|DC3|65202|DC3 for DC1|
+|DC3|65203|DC3 for DC3|
+|DC3|65204|FW|
+
+
+
+- IP
+
+|DC|IP|Interface|Notes|
+|---|---|---|---|
+|DC1|172.16.0.0/24|Serial|SPINE 연결 Serial|
+|DC1|172.16.240.0/24|Loopback0|1호기|
+|DC1|172.16.241.0/24|Loopback0|2호기|
+|DC1|172.16.242.0/24|Loopback1|1,2호기(VTEP)|
+|DC2|172.16.1.0/24|Serial|SPINE 연결 Serial|
+|DC2|172.16.243.0/24|Loopback0|1호기|
+|DC2|172.16.244.0/24|Loopback0|2호기|
+|DC2|172.16.245.0/24|Loopback1|1,2호기(VTEP)|
+|DC3|172.16.2.0/24|Serial|SPINE 연결 Serial|
+|DC3|172.16.246.0/24|Loopback0|1호기|
+|DC3|172.16.247.0/24|Loopback0|2호기|
+|DC3|172.16.248.0/24|Loopback1|1,2호기(VTEP)|
+|DCI|172.16.3.0/24|Serial|DC간 Serial|
+|ALL|172.16.250.0/31|Vlan4093|Interlink BGP|
+|ALL|172.16.255.254/31|Vlan4094|MLAG|
+|ALL|172.16.249.0/24|Loopback0|FW|
+
+
+
+- IP(FW BGP peer)
+
+|DC|IP|Interface|Notes|
+|---|---|---|---|
+|DC1|172.16.150.0/29|Vlan4000|VRF EXTERNAL|
+|DC1|172.16.150.8/29|Vlan4001|VRF A|
+|DC1|172.16.150.16/29|Vlan4002|VRF B|
+|DC1|172.16.150.24/29|Vlan4003|VRF C|
+|DC2|172.16.151.0/29|Vlan4000|VRF EXTERNAL|
+|DC2|172.16.151.8/29|Vlan4001|VRF A|
+|DC2|172.16.151.16/29|Vlan4002|VRF B|
+|DC2|172.16.151.24/29|Vlan4003|VRF C|
+|DC3|172.16.152.0/29|Vlan4000|VRF EXTERNAL|
+|DC3|172.16.152.8/29|Vlan4001|VRF A|
+|DC3|172.16.152.16/29|Vlan4002|VRF B|
+|DC3|172.16.152.24/29|Vlan4003|VRF C|
+
+

@@ -1,0 +1,118 @@
+! Startup-config last modified at Mon Jul 14 03:50:47 2025 by admin
+! device: DC3-DCI-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$LZIAj36bjeuaCgQ0$zYQ1ujZ3jozF64NX3tFcPOcpdFsbmOHmVoG5PxYHVXnYlzSlqeqYh1veHytQyfgZs9b6cQHWsfaJXz7K/VW4r1
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC3-DCI-01
+!
+spanning-tree mode rapid-pvst
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Ethernet1
+   mtu 9214
+   no switchport
+   ip address 172.16.3.5/31
+!
+interface Ethernet49
+   mtu 9214
+   no switchport
+   ip address 172.16.2.21/31
+!
+interface Loopback0
+   ip address 172.16.246.2/32
+!
+interface Loopback1
+   ip address 172.16.248.2/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.4/24
+!
+ip routing
+no ip routing vrf MGMT
+!
+ip prefix-list LOOPBACK
+   seq 10 permit 172.16.246.0/24 ge 32
+   seq 20 permit 172.16.247.0/24 ge 32
+   seq 30 permit 172.16.248.0/24 ge 32
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map LOOPBACK permit 10
+   match ip address prefix-list LOOPBACK
+!
+router bgp 65202
+   router-id 172.16.246.2
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 8 ecmp 8
+   neighbor OVERLAY peer group
+   neighbor OVERLAY remote-as 65200
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 3
+   neighbor OVERLAY send-community
+   neighbor OVERLAY_SUPER_SPINE peer group
+   neighbor OVERLAY_SUPER_SPINE remote-as 65500
+   neighbor OVERLAY_SUPER_SPINE update-source Loopback0
+   neighbor OVERLAY_SUPER_SPINE ebgp-multihop 3
+   neighbor OVERLAY_SUPER_SPINE send-community
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY remote-as 65200
+   neighbor UNDERLAY send-community
+   neighbor UNDERLAY_SUPER_SPINE peer group
+   neighbor UNDERLAY_SUPER_SPINE remote-as 65500
+   neighbor UNDERLAY_SUPER_SPINE send-community
+   neighbor 172.16.2.20 peer group UNDERLAY
+   neighbor 172.16.3.4 peer group UNDERLAY_SUPER_SPINE
+   neighbor 172.16.246.0 peer group OVERLAY
+   neighbor 172.16.249.0 peer group OVERLAY_SUPER_SPINE
+   redistribute connected route-map LOOPBACK
+   !
+   address-family evpn
+      neighbor OVERLAY activate
+      neighbor OVERLAY_SUPER_SPINE activate
+      neighbor OVERLAY_SUPER_SPINE domain remote
+      neighbor default next-hop-self received-evpn-routes route-type ip-prefix
+      neighbor default next-hop-self received-evpn-routes route-type ip-prefix inter-domain
+   !
+   address-family ipv4
+      neighbor UNDERLAY activate
+      neighbor UNDERLAY_SUPER_SPINE activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

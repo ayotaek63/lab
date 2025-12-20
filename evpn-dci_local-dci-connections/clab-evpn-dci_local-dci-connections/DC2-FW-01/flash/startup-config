@@ -1,0 +1,56 @@
+! Startup-config last modified at Mon Aug 25 07:01:38 2025 by admin
+! device: DC2-FW-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$ealSrgzN8Smm/lfd$43feHkOL2XDrrN8kC42a6WOUj6JxxppVlNeWIiBezBHK1.rSebXPphZb/LiMsuy5kchrY6MgAw2SeqtLIPEVt0
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC2-FW-01
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+interface Ethernet1
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.5/24
+!
+no ip routing
+no ip routing vrf MGMT
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

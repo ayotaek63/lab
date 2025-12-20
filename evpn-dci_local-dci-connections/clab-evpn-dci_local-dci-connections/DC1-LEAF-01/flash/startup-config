@@ -1,0 +1,124 @@
+! Startup-config last modified at Tue Aug 26 01:30:35 2025 by admin
+! device: DC1-LEAF-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$IJ8D8mDZ6BughCfv$HO70YphDIL9ACBtGoqOIR80Mh3pHyxDtUVD9MyIRTIBN8H6BueifpRfAvcP6xH4AOKhtp49aDm01bw1se5UxP0
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname DC1-LEAF-01
+!
+spanning-tree mode rapid-pvst
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 10
+!
+vrf instance A
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Ethernet49
+   mtu 9214
+   no switchport
+   ip address 172.16.0.5/31
+!
+interface Loopback0
+   ip address 172.16.240.11/32
+!
+interface Loopback1
+   ip address 172.16.242.11/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.8/24
+!
+interface Vlan10
+   mtu 9214
+   vrf A
+   ip address 10.1.1.2/24
+   ip virtual-router address 10.1.1.1
+!
+interface Vxlan1
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan 10 vni 10010
+!
+ip virtual-router mac-address aa:aa:aa:aa:aa:aa
+!
+ip routing
+ip routing vrf A
+no ip routing vrf MGMT
+!
+ip prefix-list LOOPBACK
+   seq 10 permit 172.16.240.0/24 ge 32
+   seq 20 permit 172.16.241.0/24 ge 32
+   seq 30 permit 172.16.242.0/24 ge 32
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map LOOPBACK permit 10
+   match ip address prefix-list LOOPBACK
+!
+router bgp 65010
+   router-id 172.16.240.11
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   maximum-paths 8 ecmp 8
+   neighbor OVERLAY peer group
+   neighbor OVERLAY remote-as 65000
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 3
+   neighbor OVERLAY send-community
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY remote-as 65000
+   neighbor UNDERLAY send-community
+   neighbor 172.16.0.4 peer group UNDERLAY
+   neighbor 172.16.240.0 peer group OVERLAY
+   redistribute connected route-map LOOPBACK
+   !
+   vlan-aware-bundle A
+      rd 172.16.240.11:10000
+      route-target both 10000:10000
+      redistribute learned
+      redistribute router-mac system
+      no redistribute host-route
+      vlan 10
+   !
+   address-family evpn
+      neighbor OVERLAY activate
+   !
+   address-family ipv4
+      neighbor UNDERLAY activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

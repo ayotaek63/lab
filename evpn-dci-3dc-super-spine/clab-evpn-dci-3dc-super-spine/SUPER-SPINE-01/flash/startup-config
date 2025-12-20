@@ -1,0 +1,109 @@
+! Startup-config last modified at Mon Jul 14 03:50:48 2025 by admin
+! device: SUPER-SPINE-01 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$oOPm3ikfKMQGPgRE$QRNhlpRmvV.RrhKGzOm3UuML4.Dx3MrNztA.9Nv5VC6HVgPZUMLlPIcBf6TzljZx6YvwrfHtGamtHzKAFByX6.
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname SUPER-SPINE-01
+!
+spanning-tree mode rapid-pvst
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Ethernet1
+   mtu 9214
+   no switchport
+   ip address 172.16.3.0/31
+!
+interface Ethernet2
+   mtu 9214
+   no switchport
+   ip address 172.16.3.2/31
+!
+interface Ethernet3
+   mtu 9214
+   no switchport
+   ip address 172.16.3.4/31
+!
+interface Loopback0
+   ip address 172.16.249.0/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.15/24
+!
+ip routing
+no ip routing vrf MGMT
+!
+ip prefix-list LOOPBACK
+   seq 10 permit 172.16.249.0/24 ge 32
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+route-map LOOPBACK permit 10
+   match ip address prefix-list LOOPBACK
+!
+router bgp 65500
+   router-id 172.16.249.0
+   no bgp default ipv4-unicast
+   neighbor OVERLAY peer group
+   neighbor OVERLAY update-source Loopback0
+   neighbor OVERLAY ebgp-multihop 3
+   neighbor OVERLAY send-community
+   neighbor UNDERLAY peer group
+   neighbor UNDERLAY send-community
+   neighbor 172.16.3.1 peer group UNDERLAY
+   neighbor 172.16.3.1 remote-as 65002
+   neighbor 172.16.3.3 peer group UNDERLAY
+   neighbor 172.16.3.3 remote-as 65102
+   neighbor 172.16.3.5 peer group UNDERLAY
+   neighbor 172.16.3.5 remote-as 65202
+   neighbor 172.16.240.2 peer group OVERLAY
+   neighbor 172.16.240.2 remote-as 65002
+   neighbor 172.16.243.2 peer group OVERLAY
+   neighbor 172.16.243.2 remote-as 65102
+   neighbor 172.16.246.2 peer group OVERLAY
+   neighbor 172.16.246.2 remote-as 65202
+   redistribute connected route-map LOOPBACK
+   !
+   address-family evpn
+      neighbor OVERLAY activate
+   !
+   address-family ipv4
+      neighbor UNDERLAY activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end

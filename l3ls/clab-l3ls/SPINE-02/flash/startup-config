@@ -1,0 +1,93 @@
+! Startup-config last modified at Tue Jul  8 03:26:19 2025 by root
+! device: SPINE-02 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$24zECno2H31/aJ9d$Oap8yYXPSuS7lLDx4nxHUfYfmcPXs4FJ4QFfPWKvYIgVPrcjF6dI8Ujioj7rCkHWTh8WTfpcs/BDfmIpSELUK1
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname SPINE-02
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Ethernet1/1
+   no switchport
+   ip address 172.16.1.0/31
+!
+interface Ethernet2/1
+   no switchport
+   ip address 172.16.1.2/31
+!
+interface Ethernet11/1
+   no switchport
+   ip address 172.16.1.4/31
+!
+interface Ethernet12/1
+   no switchport
+   ip address 172.16.1.6/31
+!
+interface Ethernet13/1
+   no switchport
+   ip address 172.16.1.8/31
+!
+interface Ethernet14/1
+   no switchport
+   ip address 172.16.1.10/31
+!
+interface Loopback0
+   ip address 172.16.254.0/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.7/24
+!
+ip routing
+no ip routing vrf MGMT
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+peer-filter BGP_AS
+   10 match as-range 65000-65100 result accept
+!
+router bgp 65000
+   router-id 172.16.255.0
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   graceful-restart restart-time 300
+   graceful-restart
+   maximum-paths 8 ecmp 8
+   bgp listen range 172.16.0.0/24 peer-group UNDERLAY peer-filter BGP_AS
+   bgp listen range 172.16.1.0/24 peer-group UNDERLAY peer-filter BGP_AS
+   neighbor UNDERLAY peer group
+   !
+   address-family ipv4
+      neighbor UNDERLAY activate
+!
+end

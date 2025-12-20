@@ -1,0 +1,21 @@
+---
+SW1:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.3
+SW2:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.4
+SW3:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.2
+SW4:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.5

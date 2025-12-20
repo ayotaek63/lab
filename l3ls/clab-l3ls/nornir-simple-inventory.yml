@@ -1,0 +1,56 @@
+---
+BORDER-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.8
+BORDER-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.10
+FW-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.12
+HOST-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.11
+HOST-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.3
+LEAF-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.4
+LEAF-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.9
+LEAF-03:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.6
+LEAF-04:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.2
+SPINE-01:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.5
+SPINE-02:
+    username: admin
+    password: admin
+    platform: ceos
+    hostname: 192.168.255.7

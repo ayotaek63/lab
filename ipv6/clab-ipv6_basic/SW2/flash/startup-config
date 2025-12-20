@@ -1,0 +1,97 @@
+! Startup-config last modified at Thu Dec 18 04:08:16 2025 by admin
+! device: SW2 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$F7mKnhp1ST2Qh28y$wQl17iaCbImQlMyW1QAMDYGNOhnJkB.bJjFIJ7yi/c59VI2elBFUJpFXncKMOFiba1fHSLAsMRJ1Xt0xAd.Bp/
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname SW2
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Ethernet1
+   no switchport
+   ipv6 enable
+   ipv6 address fe80::2:1/64 link-local
+!
+interface Ethernet2
+   no switchport
+   ipv6 enable
+   ipv6 address fe80::2:2/64 link-local
+!
+interface Ethernet49
+   no switchport
+   ipv6 enable
+   ipv6 address fe80::2:49/64 link-local
+!
+interface Loopback0
+   ip address 1.1.1.2/32
+   ipv6 address fc00::2/128
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.4/24
+!
+no ip routing
+no ip routing vrf MGMT
+!
+ipv6 unicast-routing
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+router bgp 2
+   router-id 1.1.1.2
+   no bgp default ipv4-unicast
+   distance bgp 20 200 200
+   neighbor SW1 peer group
+   neighbor SW1 remote-as 1
+   neighbor SW3 peer group
+   neighbor SW3 remote-as 3
+   neighbor SW4 peer group
+   neighbor SW4 remote-as 4
+   neighbor fe80::1:49%Et49 peer group SW1
+   neighbor fe80::3:2%Et1 peer group SW3
+   neighbor fe80::4:2%Et2 peer group SW4
+   redistribute connected
+   !
+   address-family ipv6
+      neighbor SW1 activate
+      neighbor SW3 activate
+      neighbor SW4 activate
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+end
