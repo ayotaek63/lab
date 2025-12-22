@@ -1,0 +1,575 @@
+{
+  "name": "ospf_max-metric",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "management_network",
+        "bridge": "br-670432b2d733",
+        "ipv4-subnet": "192.168.255.0/24",
+        "ipv4-gw": "192.168.255.1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": [],
+  "nodes": {
+    "HOST1": {
+      "index": "0",
+      "shortname": "HOST1",
+      "longname": "clab-ospf_max-metric-HOST1",
+      "fqdn": "HOST1.ospf_max-metric.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/HOST1",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.7",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:21:d2:ab",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/HOST1",
+        "clab-node-longname": "clab-ospf_max-metric-HOST1",
+        "clab-node-name": "HOST1",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1011,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1011,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "HOST2": {
+      "index": "1",
+      "shortname": "HOST2",
+      "longname": "clab-ospf_max-metric-HOST2",
+      "fqdn": "HOST2.ospf_max-metric.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/HOST2",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.8",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:e1:01:20",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/HOST2",
+        "clab-node-longname": "clab-ospf_max-metric-HOST2",
+        "clab-node-name": "HOST2",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1012,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1012,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW1": {
+      "index": "2",
+      "shortname": "SW1",
+      "longname": "clab-ospf_max-metric-SW1",
+      "fqdn": "SW1.ospf_max-metric.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW1",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.6",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:29:9b:04",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW1",
+        "clab-node-longname": "clab-ospf_max-metric-SW1",
+        "clab-node-name": "SW1",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1001,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1001,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW2": {
+      "index": "3",
+      "shortname": "SW2",
+      "longname": "clab-ospf_max-metric-SW2",
+      "fqdn": "SW2.ospf_max-metric.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW2",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.9",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:a4:d8:07",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW2",
+        "clab-node-longname": "clab-ospf_max-metric-SW2",
+        "clab-node-name": "SW2",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1002,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1002,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW3": {
+      "index": "4",
+      "shortname": "SW3",
+      "longname": "clab-ospf_max-metric-SW3",
+      "fqdn": "SW3.ospf_max-metric.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW3",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.2",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:fa:84:c9",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW3",
+        "clab-node-longname": "clab-ospf_max-metric-SW3",
+        "clab-node-name": "SW3",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1003,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1003,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW4": {
+      "index": "5",
+      "shortname": "SW4",
+      "longname": "clab-ospf_max-metric-SW4",
+      "fqdn": "SW4.ospf_max-metric.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW4",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:1d:ad:78",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW4",
+        "clab-node-longname": "clab-ospf_max-metric-SW4",
+        "clab-node-name": "SW4",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1004,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1004,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW5": {
+      "index": "6",
+      "shortname": "SW5",
+      "longname": "clab-ospf_max-metric-SW5",
+      "fqdn": "SW5.ospf_max-metric.io",
+      "group": "spine",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW5",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.5",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:01:8d:4f",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "spine",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW5",
+        "clab-node-longname": "clab-ospf_max-metric-SW5",
+        "clab-node-name": "SW5",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1005,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1005,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "SW6": {
+      "index": "7",
+      "shortname": "SW6",
+      "longname": "clab-ospf_max-metric-SW6",
+      "fqdn": "SW6.ospf_max-metric.io",
+      "group": "leaf",
+      "labdir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW6",
+      "kind": "ceos",
+      "image": "ceos:4.34.1F-64",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "192.168.255.3",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:75:c9:f2",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-670432b2d733",
+        "clab-node-group": "leaf",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/dwcts/clab/labtopology/ospf_max-metric/clab-ospf_max-metric/SW6",
+        "clab-node-longname": "clab-ospf_max-metric-SW6",
+        "clab-node-name": "SW6",
+        "clab-node-type": "",
+        "clab-owner": "dwcts",
+        "clab-topo-file": "/home/dwcts/clab/labtopology/ospf_max-metric/ospf_max-metric.yml",
+        "containerlab": "ospf_max-metric"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 1006,
+          "port": 22,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 1006,
+          "port": 22,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "SW1",
+        "interface": "et49",
+        "mac": "aa:c1:ab:00:eb:38",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW2",
+        "interface": "et49",
+        "mac": "aa:c1:ab:09:b0:63",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW1",
+        "interface": "et1",
+        "mac": "aa:c1:ab:ca:a7:40",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW3",
+        "interface": "et11",
+        "mac": "aa:c1:ab:95:99:a1",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW1",
+        "interface": "et2",
+        "mac": "aa:c1:ab:fb:61:58",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW4",
+        "interface": "et11",
+        "mac": "aa:c1:ab:88:73:62",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW2",
+        "interface": "et1",
+        "mac": "aa:c1:ab:5a:f7:2a",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW3",
+        "interface": "et12",
+        "mac": "aa:c1:ab:ac:5a:8b",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW2",
+        "interface": "et2",
+        "mac": "aa:c1:ab:b0:f6:3d",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW4",
+        "interface": "et12",
+        "mac": "aa:c1:ab:b3:e8:37",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW3",
+        "interface": "et49",
+        "mac": "aa:c1:ab:da:1d:1e",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW4",
+        "interface": "et49",
+        "mac": "aa:c1:ab:76:2b:17",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW3",
+        "interface": "et1",
+        "mac": "aa:c1:ab:e6:89:8a",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW5",
+        "interface": "et11",
+        "mac": "aa:c1:ab:a9:99:4c",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW3",
+        "interface": "et2",
+        "mac": "aa:c1:ab:82:5a:76",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW6",
+        "interface": "et11",
+        "mac": "aa:c1:ab:77:7f:58",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW4",
+        "interface": "et1",
+        "mac": "aa:c1:ab:5f:1d:1d",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW5",
+        "interface": "et12",
+        "mac": "aa:c1:ab:69:3c:ae",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW4",
+        "interface": "et2",
+        "mac": "aa:c1:ab:b0:dd:75",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW6",
+        "interface": "et12",
+        "mac": "aa:c1:ab:12:d6:44",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "SW5",
+        "interface": "et49",
+        "mac": "aa:c1:ab:e5:57:db",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW6",
+        "interface": "et49",
+        "mac": "aa:c1:ab:7d:4a:4f",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "HOST1",
+        "interface": "et1",
+        "mac": "aa:c1:ab:af:77:b3",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW1",
+        "interface": "et21",
+        "mac": "aa:c1:ab:04:12:2a",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "HOST1",
+        "interface": "et2",
+        "mac": "aa:c1:ab:ec:98:59",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW2",
+        "interface": "et21",
+        "mac": "aa:c1:ab:6a:d7:3a",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "HOST2",
+        "interface": "et1",
+        "mac": "aa:c1:ab:b1:ae:11",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW5",
+        "interface": "et21",
+        "mac": "aa:c1:ab:75:05:35",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "HOST2",
+        "interface": "et2",
+        "mac": "aa:c1:ab:b1:6b:ba",
+        "peer": "z"
+      },
+      "z": {
+        "node": "SW6",
+        "interface": "et21",
+        "mac": "aa:c1:ab:7e:b1:5f",
+        "peer": "a"
+      }
+    }
+  ]
+}

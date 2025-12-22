@@ -1,0 +1,127 @@
+! Startup-config last modified at Mon Dec 22 16:04:46 2025 by admin
+! device: SW5 (cEOSLab, EOS-4.34.1F-42424637.4341F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$wzSHayqt5NVHMUGc$v2q9QkZ73RygIEuFk8n7RNMikw0IwskRU9ttgDWufPaUq3dUHVLeXGiFFHQIDYyZeeNqcN8LgwTf.iV4jUJaU.
+!
+management api http-commands
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+!
+no service interface inactive port-id allocation disabled
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname SW5
+!
+spanning-tree mode mstp
+no spanning-tree vlan-id 4093-4094
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+vlan 20
+!
+vlan 4093
+   trunk group inter-l3
+!
+vlan 4094
+   trunk group mlag
+!
+vrf instance MGMT
+!
+management api gnmi
+   transport grpc default
+      vrf MGMT
+!
+management api netconf
+   transport ssh default
+      vrf MGMT
+!
+aaa authorization exec default local
+!
+interface Port-Channel21
+   switchport mode trunk
+   mlag 21
+!
+interface Port-Channel2000
+   switchport mode trunk
+   switchport trunk group inter-l3
+   switchport trunk group mlag
+!
+interface Ethernet11
+   description sw3
+   no switchport
+   ip address 172.17.3.1/31
+   ip ospf network point-to-point
+!
+interface Ethernet12
+   description sw4
+   no switchport
+   ip address 172.17.4.1/31
+   ip ospf network point-to-point
+!
+interface Ethernet21
+   channel-group 21 mode active
+!
+interface Ethernet49
+   channel-group 2000 mode active
+!
+interface Loopback0
+   ip address 172.17.100.5/32
+!
+interface Management0
+   vrf MGMT
+   ip address 192.168.255.5/24
+!
+interface Vlan20
+   ip address 20.1.1.2/24
+   ip virtual-router address 20.1.1.1
+!
+interface Vlan4093
+   ip address 172.17.255.252/31
+   ip ospf network point-to-point
+!
+interface Vlan4094
+   no autostate
+   ip address 172.17.255.254/31
+!
+ip virtual-router mac-address aa:aa:aa:aa:aa:aa
+!
+ip routing
+no ip routing vrf MGMT
+!
+mlag configuration
+   domain-id mlag
+   local-interface Vlan4094
+   peer-address 172.17.255.255
+   peer-link Port-Channel2000
+!
+ip route vrf MGMT 0.0.0.0/0 192.168.255.1
+!
+router multicast
+   ipv4
+      software-forwarding kernel
+   !
+   ipv6
+      software-forwarding kernel
+!
+router ospf 1
+   router-id 172.17.100.5
+   passive-interface default
+   no passive-interface Ethernet11
+   no passive-interface Ethernet12
+   no passive-interface Vlan4093
+   redistribute connected
+   network 172.17.3.0/31 area 0.0.0.0
+   network 172.17.4.0/31 area 0.0.0.0
+   network 172.17.255.252/31 area 0.0.0.0
+   max-lsa 12000
+!
+end

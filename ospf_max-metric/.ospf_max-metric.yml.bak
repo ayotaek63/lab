@@ -1,0 +1,102 @@
+# topology name
+name: ospf_max-metric
+
+mgmt:
+  network: management_network
+  ipv4-subnet: 192.168.255.0/24
+  ipv4-gw: 192.168.255.1
+
+#[ip address]:50080
+#The higher the number, the higher the layout
+#Applied from 'node:' to 'group'
+#sortOrder: ['10', '9', 'superspine', '8', 'dc-gw', '7', '6', 'spine', '5', '4', 'leaf', 'border-leaf', '3', 'server', '2', '1'],
+
+topology:
+  defaults:
+    env:
+      INTFTYPE: et
+
+  kinds:
+    ceos:
+      #docker image
+      image: ceos:4.34.1F-64
+      env:
+        CLAB_MGMT_VRF: MGMT
+
+  nodes:
+    SW1:
+      kind: ceos
+      ports:
+        - 1001:22
+      group: spine
+
+    SW2:
+      kind: ceos
+      ports:
+        - 1002:22
+      group: leaf
+
+    SW3:
+      kind: ceos
+      ports:
+        - 1003:22
+      group: spine
+
+    SW4:
+      kind: ceos
+      ports:
+        - 1004:22
+      group: leaf
+
+    SW5:
+      kind: ceos
+      ports:
+        - 1005:22
+      group: spine
+
+    SW6:
+      kind: ceos
+      ports:
+        - 1006:22
+      group: leaf
+
+    HOST1:
+      kind: ceos
+      ports:
+        - 1011:22
+      group: spine
+
+    HOST2:
+      kind: ceos
+      ports:
+        - 1012:22
+      group: leaf
+
+  links:
+    #sw1
+    - endpoints: ["SW1:et49", "SW2:et49"]
+    - endpoints: ["SW1:et1", "SW3:et11"]
+    - endpoints: ["SW1:et2", "SW4:et11"]
+
+    #sw2
+    - endpoints: ["SW2:et1", "SW3:et12"]
+    - endpoints: ["SW2:et2", "SW4:et12"]
+
+    #sw3
+    - endpoints: ["SW3:et49", "SW4:et49"]
+    - endpoints: ["SW3:et1", "SW5:et11"]
+    - endpoints: ["SW3:et2", "SW6:et11"]
+
+    #sw4
+    - endpoints: ["SW4:et1", "SW5:et12"]
+    - endpoints: ["SW4:et2", "SW6:et12"]
+
+    #sw5
+    - endpoints: ["SW5:et49", "SW6:et49"]
+
+    #hosts
+    - endpoints: ["HOST1:et1", "SW1:et21"]
+    - endpoints: ["HOST1:et2", "SW2:et21"]
+    - endpoints: ["HOST2:et1", "SW5:et21"]
+    - endpoints: ["HOST2:et2", "SW6:et21"]
+
